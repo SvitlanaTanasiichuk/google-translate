@@ -1,0 +1,27 @@
+<section>
+  <mat-button-toggle-group>
+    <mat-button-toggle value="sourceLng">{{sourceLng}}</mat-button-toggle>
+    <mat-button-toggle value="targetLng">{{targetLng}}</mat-button-toggle>
+    <mat-button-toggle value="lastLng">{{lastLng}}</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+      </mat-expansion-panel-header>
+      <div *ngFor="let language of languages$ | async">
+        <section [formGroup]="languages">
+          <p>
+            <mat-checkbox formControlName="name" (change)="onChange(language)">{{language.name}}</mat-checkbox>
+          </p>
+        </section>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div class="translation__block">
+    <app-card [sourceLng]="sourceLng" [targetLng]="targetLng" [lastLng]="lastLng"></app-card>
+    <app-translation-card></app-translation-card>
+  </div>
+</section>
