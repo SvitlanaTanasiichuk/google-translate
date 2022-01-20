@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 import { Language } from './language';
 
 export interface TranslatedText {
@@ -24,7 +25,7 @@ export class TranslateService {
       target: targetLng,
       format: 'text'
     };
-    return this.http.post<TranslatedText>('https://libretranslate.de/translate', body, { headers }).pipe(
+    return this.http.post<TranslatedText>(`${environment.baseUrl}/translate`, body, { headers }).pipe(
       map(response => response.translatedText)
     );
   }
@@ -38,6 +39,6 @@ export class TranslateService {
   }
 
   getLanguages(): Observable<Language[]> {
-    return this.http.get<Language[]>('https://libretranslate.de/languages');
+    return this.http.get<Language[]>(`${environment.baseUrl}/languages`);
   }
 }

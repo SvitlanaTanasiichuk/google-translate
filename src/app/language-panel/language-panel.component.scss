@@ -1,5 +1,12 @@
-.translation {
+.selection {
   &__block {
     display: flex;
+    justify-content: space-between;
+    border: 1px solid #dedbdb;
   }
 }
+  .translation {
+    &__block {
+      display: flex;
+    }
+  }

@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
+import { Language } from '../language';
 import { TranslateService } from '../translate.service';
 
 @Component({
@@ -9,9 +10,9 @@ import { TranslateService } from '../translate.service';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit, OnDestroy {
-  @Input() sourceLng: string;
-  @Input() targetLng: string;
-  @Input() lastLng: string;
+  @Input() sourceLng: Language;
+  @Input() targetLng: Language;
+  @Input() lastLng: Language;
 
   translation$ = new Subscription();
   private searchText$ = new Subject<string>();
@@ -32,7 +33,7 @@ export class CardComponent implements OnInit, OnDestroy {
       filter(text => text.length >= 2),
       debounceTime(1000),
       distinctUntilChanged(),
-      switchMap(value => this.translateService.translate(value, this.sourceLng, this.targetLng),
+      switchMap(value => this.translateService.translate(value, this.sourceLng.code, this.targetLng.code),
       ),
     ).subscribe(res => this.translateService.updateText(res));
   }
