@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TranslateService } from '../translate.service';
+import { TranslateService } from '../services/translate.service';
 
 @Component({
   selector: 'app-translation-card',

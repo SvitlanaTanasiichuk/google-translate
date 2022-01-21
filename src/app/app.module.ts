@@ -7,18 +7,19 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CardComponent } from './card/card.component';
-import { HomePageComponent } from './home-page/home-page.component';
-import { LanguagePanelComponent } from './language-panel/language-panel.component';
-import { TranslationCardComponent } from './translation-card/translation-card.component';
+import { CardComponent } from './translation/card/card.component';
+import { HomePageComponent } from './translation/home-page/home-page.component';
+import { LanguagePanelComponent } from './translation/language-panel/language-panel.component';
+import { TranslationCardComponent } from './translation/translation-card/translation-card.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,6 @@ import { TranslationCardComponent } from './translation-card/translation-card.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     MatCardModule,
     MatButtonModule,
     BrowserAnimationsModule,
@@ -44,6 +44,8 @@ import { TranslationCardComponent } from './translation-card/translation-card.co
     MatRadioModule,
     MatSelectModule,
     MatOptionModule,
+    MatIconModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

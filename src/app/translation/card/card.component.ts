@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
 import { Language } from '../language';
-import { TranslateService } from '../translate.service';
+import { TranslateService } from '../services/translate.service';
 
 @Component({
   selector: 'app-card',

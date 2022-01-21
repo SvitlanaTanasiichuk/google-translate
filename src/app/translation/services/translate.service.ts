@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from '../environments/environment';
-import { Language } from './language';
+import { environment } from '../../../environments/environment';
+import { Language } from '../language';
 
 export interface TranslatedText {
   translatedText: string;
