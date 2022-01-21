@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ import { TranslateService } from '../services/translate.service';
 })
 export class LanguagePanelComponent implements OnInit {
   languages$ = new Observable<Language[]>();
-  languagesForm: FormGroup;
+  control = new FormControl();
   sourceLng: Language = {code: 'ru', name: 'Russian'};
   targetLng: Language = {code: 'en', name: 'English'};
   lastLng: Language = {code: 'de', name: 'German'};
@@ -23,17 +23,10 @@ export class LanguagePanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLanguages();
-    this.initialiseForm();
   }
 
   private getLanguages(): void {
     this.languages$ = this.translateService.getLanguages();
-  }
-
-  private initialiseForm(): void {
-    this.languagesForm = this.fb.group({
-      name: new FormControl(''),
-    });
   }
 
   onChange(language: MatButtonToggleChange): void {

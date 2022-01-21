@@ -5,8 +5,14 @@
     border: 1px solid #dedbdb;
   }
 }
-  .translation {
-    &__block {
-      display: flex;
-    }
+
+.translation {
+  &__block {
+    display: flex;
   }
+}
+
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+  color: rgb(29 83 235 / 87%);
+  font-weight: 500;
+}

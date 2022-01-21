@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -46,6 +47,7 @@ import { TranslationCardComponent } from './translation/translation-card/transla
     MatOptionModule,
     MatIconModule,
     MatTooltipModule,
+    MatAutocompleteModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
