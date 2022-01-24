@@ -12,7 +12,6 @@ import { TranslateService } from '../services/translate.service';
 export class CardComponent implements OnInit, OnDestroy {
   @Input() sourceLng: Language;
   @Input() targetLng: Language;
-  @Input() lastLng: Language;
 
   translation$ = new Subscription();
   private searchText$ = new Subject<string>();

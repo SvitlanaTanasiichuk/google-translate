@@ -18,14 +18,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { CardComponent } from './translation/card/card.component';
-import { HomePageComponent } from './translation/home-page/home-page.component';
 import { LanguagePanelComponent } from './translation/language-panel/language-panel.component';
 import { TranslationCardComponent } from './translation/translation-card/translation-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent,
     CardComponent,
     TranslationCardComponent,
     LanguagePanelComponent,

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { MatOptionSelectionChange } from '@angular/material/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Language } from '../language';
 import { TranslateService } from '../services/translate.service';
 
@@ -12,21 +14,31 @@ import { TranslateService } from '../services/translate.service';
   styleUrls: ['./language-panel.component.scss'],
 })
 export class LanguagePanelComponent implements OnInit {
-  languages$ = new Observable<Language[]>();
-  control = new FormControl();
+   @ViewChild('matAutocompleteTrigger',  {read: MatAutocompleteTrigger}) trigger: MatAutocompleteTrigger;
+
+  filteredOptions$: Observable<Language[]>;
+  languages$: Observable<Language[]>;
+  showLanguagePanel = false;
+  control: FormControl = new FormControl();
+  selectedVal: Language;
   sourceLng: Language = {code: 'ru', name: 'Russian'};
   targetLng: Language = {code: 'en', name: 'English'};
   lastLng: Language = {code: 'de', name: 'German'};
 
-  constructor(private translateService: TranslateService, private fb: FormBuilder) {
+  private filteredOptionsSubject = new BehaviorSubject<Language[]>([]);
+
+  constructor(private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
+    this.selectedVal = this.sourceLng;
+    this.filteredOptions$ = this.filteredOptionsSubject.asObservable();
     this.getLanguages();
   }
 
-  private getLanguages(): void {
-    this.languages$ = this.translateService.getLanguages();
+  private getLanguages(): Observable<Language[]> {
+    return this.languages$ = this.translateService.getLanguages()
+      .pipe(tap(val => this.filteredOptionsSubject.next(val)));
   }
 
   onChange(language: MatButtonToggleChange): void {
@@ -39,19 +51,21 @@ export class LanguagePanelComponent implements OnInit {
       return;
     }
 
-    const jsonData = JSON.stringify(event.source.value);
-
     if (data === 'sourceLng') {
-      this.sourceLng.code = event.source.value.code;
-      localStorage.setItem('sourceLng', jsonData);
+      this.sourceLng = event.source.value;
     }
 
     if (data === 'targetLng') {
-      this.targetLng.code = event.source.value.code;
-      localStorage.setItem('targetLng', jsonData);
+      this.targetLng = event.source.value;
     }
 
+    const jsonData = JSON.stringify(event.source.value);
+    this.setToLocalStorage(data, jsonData);
     console.log(event);
+  }
+
+  setToLocalStorage(value: string, data: string): void {
+    localStorage.setItem(value, data);
   }
 
   changeSourceLng(): void {
@@ -59,5 +73,17 @@ export class LanguagePanelComponent implements OnInit {
     const oldTarget = this.targetLng;
     this.targetLng = oldSource;
     this.sourceLng = oldTarget;
+  }
+
+  toggleAutocomplete(): void {
+     this.showLanguagePanel = !this.showLanguagePanel;
+  }
+
+  onAutocompleteKeyUp(searchText: string, languages: Language[]): void {
+    const lowerSearchText = searchText?.toLowerCase();
+
+    this.filteredOptionsSubject.next(
+      languages.filter(val =>
+        val.name.toLocaleLowerCase().includes(lowerSearchText)));
   }
 }
