@@ -17,6 +17,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
+import { ButtonToggleGroupComponent } from './translation/button-toggle-group/button-toggle-group.component';
 import { CardComponent } from './translation/card/card.component';
 import { LanguagePanelComponent } from './translation/language-panel/language-panel.component';
 import { TranslationCardComponent } from './translation/translation-card/translation-card.component';
@@ -27,6 +28,7 @@ import { TranslationCardComponent } from './translation/translation-card/transla
     CardComponent,
     TranslationCardComponent,
     LanguagePanelComponent,
+    ButtonToggleGroupComponent,
   ],
   imports: [
     BrowserModule,

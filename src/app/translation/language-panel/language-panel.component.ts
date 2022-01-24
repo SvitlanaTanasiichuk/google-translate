@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
-import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -14,16 +13,14 @@ import { TranslateService } from '../services/translate.service';
   styleUrls: ['./language-panel.component.scss'],
 })
 export class LanguagePanelComponent implements OnInit {
-   @ViewChild('matAutocompleteTrigger',  {read: MatAutocompleteTrigger}) trigger: MatAutocompleteTrigger;
+  @ViewChild('matAutocompleteTrigger', {read: MatAutocompleteTrigger}) trigger: MatAutocompleteTrigger;
 
   filteredOptions$: Observable<Language[]>;
   languages$: Observable<Language[]>;
   showLanguagePanel = false;
   control: FormControl = new FormControl();
-  selectedVal: Language;
-  sourceLng: Language = {code: 'ru', name: 'Russian'};
-  targetLng: Language = {code: 'en', name: 'English'};
-  lastLng: Language = {code: 'de', name: 'German'};
+  sourceLng: Language;
+  targetLng: Language;
 
   private filteredOptionsSubject = new BehaviorSubject<Language[]>([]);
 
@@ -31,7 +28,6 @@ export class LanguagePanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedVal = this.sourceLng;
     this.filteredOptions$ = this.filteredOptionsSubject.asObservable();
     this.getLanguages();
   }
@@ -39,11 +35,6 @@ export class LanguagePanelComponent implements OnInit {
   private getLanguages(): Observable<Language[]> {
     return this.languages$ = this.translateService.getLanguages()
       .pipe(tap(val => this.filteredOptionsSubject.next(val)));
-  }
-
-  onChange(language: MatButtonToggleChange): void {
-    this.sourceLng.code = language.value;
-    console.log('language', language);
   }
 
   onLanguageChange(event: MatOptionSelectionChange, data: string): void {
@@ -76,7 +67,7 @@ export class LanguagePanelComponent implements OnInit {
   }
 
   toggleAutocomplete(): void {
-     this.showLanguagePanel = !this.showLanguagePanel;
+    this.showLanguagePanel = !this.showLanguagePanel;
   }
 
   onAutocompleteKeyUp(searchText: string, languages: Language[]): void {
@@ -85,5 +76,9 @@ export class LanguagePanelComponent implements OnInit {
     this.filteredOptionsSubject.next(
       languages.filter(val =>
         val.name.toLocaleLowerCase().includes(lowerSearchText)));
+  }
+
+  onLngSelect(event: Event): void {
+    console.log(86, event);
   }
 }

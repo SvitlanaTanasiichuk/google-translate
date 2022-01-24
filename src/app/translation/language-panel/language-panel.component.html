@@ -1,10 +1,6 @@
 <section>
   <div class="selection__block">
-    <mat-button-toggle-group (change)="onChange($event)">
-      <mat-button-toggle value="{{sourceLng.code}}">{{sourceLng.name}}</mat-button-toggle>
-      <mat-button-toggle value="{{targetLng.code}}">{{targetLng.name}}</mat-button-toggle>
-      <mat-button-toggle value="{{lastLng.code}}">{{lastLng.name}}</mat-button-toggle>
-    </mat-button-toggle-group>
+    <app-button-toggle-group [language]="sourceLng" (selectedLanguage)="onLngSelect($event)"></app-button-toggle-group>
     <div>
 
       <button mat-button (click)="toggleAutocomplete()"
@@ -35,12 +31,7 @@
       <mat-icon>swap_horiz</mat-icon>
     </button>
 
-    <mat-button-toggle-group>
-      <mat-button-toggle value="{{sourceLng.code}}">{{sourceLng.name}}</mat-button-toggle>
-      <mat-button-toggle value="{{targetLng.code}}">{{targetLng.name}}</mat-button-toggle>
-      <mat-button-toggle value="{{lastLng.code}}">{{lastLng.name}}</mat-button-toggle>
-    </mat-button-toggle-group>
-
+    <app-button-toggle-group [language]="targetLng"></app-button-toggle-group>
   </div>
 
   <div class="translation__block">
