@@ -1,5 +1,28 @@
-<mat-button-toggle-group (change)="onChange($event)" [value]="language">
-  <mat-button-toggle value="{{option1.code}}">{{option1.name}}</mat-button-toggle>
-  <mat-button-toggle value="{{option2.code}}">{{option2.name}}</mat-button-toggle>
-  <mat-button-toggle value="{{option3.code}}">{{option3.name}}</mat-button-toggle>
+<mat-button-toggle-group (change)="onChange($event)">
+  <mat-button-toggle *ngFor="let language of defaultLanguages" [value]="language">{{language.name}}</mat-button-toggle>
 </mat-button-toggle-group>
+
+<div>
+<button mat-button (click)="toggleAutocomplete()"
+        matTooltip="Select language">
+  <i class="material-icons">keyboard_arrow_down</i>
+</button>
+<form *ngIf="showLanguagePanel">
+  <ng-container *ngIf="languages$ | async as languages">
+    <mat-form-field *ngIf="filteredOptions$ | async as filteredOptions">
+      <input type="text"
+             #matAutocompleteTrigger
+             placeholder="Pick one"
+             matInput
+             [formControl]="control"
+             [matAutocomplete]="auto" (keyup)="onAutocompleteKeyUp(matAutocompleteTrigger.value, languages)">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let language of filteredOptions"
+                    [value]="language"
+                    (onSelectionChange)="onLanguageChange($event, 'sourceLng')"
+        >{{language.name}}</mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </ng-container>
+</form>
+</div>

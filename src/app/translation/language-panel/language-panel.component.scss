@@ -1,18 +1,17 @@
-.selection {
-  &__block {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #dedbdb;
-  }
-}
+section {
+  min-width: 45em;
 
-.translation {
-  &__block {
-    display: flex;
+  .selection {
+    &__block {
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid #dedbdb;
+    }
   }
-}
 
-.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
-  color: rgb(29 83 235 / 87%);
-  font-weight: 500;
+  .translation {
+    &__block {
+      display: flex;
+    }
+  }
 }

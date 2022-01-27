@@ -28,11 +28,14 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   private getTranslation(): void {
+    console.log(this.sourceLng);
+    console.log(this.targetLng);
     this.translation$ = this.searchText$.pipe(
       filter(text => text.length >= 2),
       debounceTime(1000),
       distinctUntilChanged(),
-      switchMap(value => this.translateService.translate(value, this.sourceLng.code, this.targetLng.code),
+      switchMap(value =>
+          this.translateService.translate(value, this.sourceLng.code, this.targetLng.code),
       ),
     ).subscribe(res => this.translateService.updateText(res));
   }
