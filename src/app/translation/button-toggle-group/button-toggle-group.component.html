@@ -1,4 +1,4 @@
-<mat-button-toggle-group (change)="onChange($event)">
+<mat-button-toggle-group (change)="onChange($event)" [value]="selectedLang">
   <mat-button-toggle *ngFor="let language of defaultLanguages" [value]="language">{{language.name}}</mat-button-toggle>
 </mat-button-toggle-group>
 
@@ -16,7 +16,7 @@
              matInput
              [formControl]="control"
              [matAutocomplete]="auto" (keyup)="onAutocompleteKeyUp(matAutocompleteTrigger.value, languages)">
-      <mat-autocomplete #auto="matAutocomplete">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let language of filteredOptions"
                     [value]="language"
                     (onSelectionChange)="onLanguageChange($event)"

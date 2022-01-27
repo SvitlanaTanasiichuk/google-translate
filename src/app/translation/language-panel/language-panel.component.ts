@@ -22,6 +22,8 @@ export class LanguagePanelComponent implements OnInit {
     const oldTarget = this.targetLng;
     this.targetLng = oldSource;
     this.sourceLng = oldTarget;
+    this.setToLocalStorage('sourceLng', JSON.stringify(this.sourceLng));
+    this.setToLocalStorage('targetLng', JSON.stringify(this.targetLng));
   }
 
   onLngSelect(data: Language, value: string): void {
@@ -32,7 +34,6 @@ export class LanguagePanelComponent implements OnInit {
     }
 
     this.setToLocalStorage(value, JSON.stringify(data));
-    console.log(86, data, value);
   }
 
   private setToLocalStorage(value: string, data: string): void {

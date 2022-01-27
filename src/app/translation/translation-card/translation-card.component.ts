@@ -8,12 +8,12 @@ import { TranslateService } from '../services/translate.service';
   styleUrls: ['./translation-card.component.scss']
 })
 export class TranslationCardComponent implements OnInit {
-  translatedText: Observable<string>;
+  translatedText$: Observable<string>;
 
   constructor(private translateService: TranslateService ) { }
 
   ngOnInit(): void {
-    this.translatedText = this.translateService.getText();
+    this.translatedText$ = this.translateService.getText();
   }
 
 }

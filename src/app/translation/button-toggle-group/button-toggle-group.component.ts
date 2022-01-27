@@ -19,9 +19,6 @@ export class ButtonToggleGroupComponent implements OnInit {
   @Output() selectedLanguage = new EventEmitter<Language>();
   @ViewChild('matAutocompleteTrigger', {read: MatAutocompleteTrigger}) trigger: MatAutocompleteTrigger;
 
-
-  // sourceLng: Language;
-  // targetLng: Language;
   control: FormControl = new FormControl();
   showLanguagePanel = false;
   filteredOptions$: Observable<Language[]>;
@@ -38,7 +35,6 @@ export class ButtonToggleGroupComponent implements OnInit {
 
   onChange(language: MatButtonToggleChange): void {
     this.selectedLanguage.emit(language.value);
-    console.log('language', language.value);
   }
 
   toggleAutocomplete(): void {
@@ -47,7 +43,6 @@ export class ButtonToggleGroupComponent implements OnInit {
 
   onAutocompleteKeyUp(searchText: string, languages: Language[]): void {
     const lowerSearchText = searchText?.toLowerCase();
-
     this.filteredOptionsSubject.next(
       languages.filter(val =>
         val.name.toLocaleLowerCase().includes(lowerSearchText)));
@@ -58,8 +53,16 @@ export class ButtonToggleGroupComponent implements OnInit {
       return;
     }
 
+    this.showLanguagePanel = false;
+    this.defaultLanguages.pop();
+    this.defaultLanguages.unshift(event.source.value);
     this.selectedLanguage.emit(event.source.value);
-    console.log(event);
+  }
+
+  displayFn(language: Language): string {
+    return language && language.name
+      ? language.name
+      : '';
   }
 
   private getLanguages(): Observable<Language[]> {
