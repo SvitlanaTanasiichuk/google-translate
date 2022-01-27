@@ -19,7 +19,7 @@
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let language of filteredOptions"
                     [value]="language"
-                    (onSelectionChange)="onLanguageChange($event, 'sourceLng')"
+                    (onSelectionChange)="onLanguageChange($event)"
         >{{language.name}}</mat-option>
       </mat-autocomplete>
     </mat-form-field>
