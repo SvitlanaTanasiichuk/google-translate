@@ -28,8 +28,6 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   private getTranslation(): void {
-    console.log('getTranslation source', this.sourceLng);
-    console.log('getTranslation target', this.targetLng);
     this.translation$ = this.searchText$.pipe(
       filter(text => text.length >= 2),
       debounceTime(1000),

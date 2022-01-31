@@ -8,13 +8,15 @@ import { Language } from '../language';
   styleUrls: ['./language-panel.component.scss'],
 })
 export class LanguagePanelComponent implements OnInit {
-  sourceLng: Language = DefaultLanguages[0];
-  targetLng: Language = DefaultLanguages[1];
+  defaultLanguages: Language[] = DefaultLanguages;
+  sourceLng: Language;
+  targetLng: Language;
 
   constructor() {
   }
 
   ngOnInit(): void {
+    this.setDefaultLanguages();
   }
 
   changeSourceLng(): void {
@@ -29,18 +31,46 @@ export class LanguagePanelComponent implements OnInit {
   onLngSelect(data: Language, value: string): void {
     if (value === 'sourceLng') {
       this.sourceLng = data;
+
+      if (this.sourceLng === this.targetLng) {
+        const index = this.defaultLanguages.findIndex(x => x === this.targetLng);
+        this.targetLng = this.compareLanguages(index);
+      }
     } else {
       this.targetLng = data;
+
+      if (this.sourceLng === this.targetLng) {
+        const index = this.defaultLanguages.findIndex(x => x === this.sourceLng);
+        this.sourceLng = this.compareLanguages(index);
+      }
     }
 
     this.setToLocalStorage(value, JSON.stringify(data));
+  }
+
+  private compareLanguages(index: number): Language {
+    return index === 0
+      ? this.defaultLanguages[index + 1]
+      : this.defaultLanguages[index - 1];
   }
 
   private setToLocalStorage(value: string, data: string): void {
     localStorage.setItem(value, data);
   }
 
-  private getFromLocalStorage(value: string): void {
-    localStorage.getItem(value);
+  private setDefaultLanguages(): void {
+    this.sourceLng = this.getFromLocalStorage('sourceLng')
+      ? this.getFromLocalStorage('sourceLng')
+      : DefaultLanguages[0];
+
+    this.targetLng = this.getFromLocalStorage('targetLng')
+      ? this.getFromLocalStorage('targetLng')
+      : DefaultLanguages[1];
+  }
+
+  private getFromLocalStorage(value: string): Language {
+    const storageItem = localStorage.getItem(value);
+    // @ts-ignore
+    return JSON.parse(storageItem);
   }
 }

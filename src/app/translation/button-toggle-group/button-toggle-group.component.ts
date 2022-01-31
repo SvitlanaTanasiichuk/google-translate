@@ -12,7 +12,7 @@ import { TranslateService } from '../services/translate.service';
 @Component({
   selector: 'app-button-toggle-group',
   templateUrl: './button-toggle-group.component.html',
-  styleUrls: ['./button-toggle-group.component.scss']
+  styleUrls: ['./button-toggle-group.component.scss'],
 })
 export class ButtonToggleGroupComponent implements OnInit {
   @Input() selectedLang: Language;
@@ -23,10 +23,11 @@ export class ButtonToggleGroupComponent implements OnInit {
   showLanguagePanel = false;
   filteredOptions$: Observable<Language[]>;
   languages$: Observable<Language[]>;
+  defaultLanguages = DefaultLanguages;
   private filteredOptionsSubject = new BehaviorSubject<Language[]>([]);
-  public defaultLanguages = DefaultLanguages;
 
-  constructor(private translateService: TranslateService) { }
+  constructor(private translateService: TranslateService) {
+  }
 
   ngOnInit(): void {
     this.filteredOptions$ = this.filteredOptionsSubject.asObservable();
